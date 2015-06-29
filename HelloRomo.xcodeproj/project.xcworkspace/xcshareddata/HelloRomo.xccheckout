@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7E6FF688-EDCB-40F6-8907-C9C7A7E3657A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HelloRomo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</key>
+		<string>https://github.com/GuruTeja/HelloRomo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>HelloRomo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/GuruTeja/HelloRomo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HelloRomo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
