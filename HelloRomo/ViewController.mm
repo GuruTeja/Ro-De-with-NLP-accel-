@@ -42,6 +42,7 @@ static BOOL _debug = NO;
     GCDAsyncSocket *listenSocket;
     
     CMMotionManager *mManager;
+    AVAudioPlayer *audioPlayer;
 }
 //NLp
 @property (nonatomic, strong) NSArray *tags;
@@ -65,6 +66,7 @@ double j = 0;
 double confidence;
 double maxradius = 1;
 double excess1 = 0;
+double takePicture =0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -116,6 +118,15 @@ double excess1 = 0;
 
 - (void)didCaptureIplImage:(IplImage *)iplImage
 {
+    //save the image
+    if(takePicture > 0){
+        NSString *imagePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *imageName = [imagePath stringByAppendingPathComponent:@"MainImage.jpg"];
+        NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
+        BOOL result = [imageData writeToFile:imageName atomically:YES];
+        NSLog(@"Saved to %@? %@", imageName, (result? @"YES": @"NO"));
+    }
+    
     //ipl image is in BGR format, it needs to be converted to RGB for display in UIImageView
     IplImage *imgRGB = cvCreateImage(cvGetSize(iplImage), IPL_DEPTH_8U, 3);
     /* Converts input array pixels from one color space to another */
@@ -392,43 +403,10 @@ double excess1 = 0;
                             
                         }
                         //stop in excess decination
-                        else if ((a <= 0.35 & a >= -0.35)& ((b <= 1.0 & b >= -0.99) || (b >= -1.0 & b <= -0.80) )& (c >= 0.10 & c<= 1.10)){
-                            excess1 =  excess1 +1;
-                            //NSLog(@"excess value is :%f",excess1);
-                            self.Romo.expression=RMCharacterExpressionDizzy;
-                            self.Romo.emotion=RMCharacterEmotionIndifferent;
-                            [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
-                                if (success) {
-                                    [self.Romo3 stopDriving];
-                                    [self.Romo3 tiltToAngle:70 completion:^(BOOL success) {
-                                        self.Romo.expression= RMCharacterExpressionPonder;
-                                        self.Romo.emotion=RMCharacterEmotionExcited;
-                                        [self.Romo3 driveForwardWithSpeed:1.5];
-                                    }];
-                                }
-                            }];
-                        }
-                        //stop in excess inclination
-                        else if (((a <= 0.35 & a >= -0.35) & ((b >= -0.01 & b <= 0.22) ||(b>= -0.45 & b<= -0.01))& (c >= -1.10 & c <= -0.76))){
-                            excess1 = excess1 +1;
-                            //NSLog(@"excess value is :%f",excess1);
-                            self.Romo.expression=RMCharacterExpressionDizzy;
-                            self.Romo.emotion=RMCharacterEmotionIndifferent;
-                            [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
-                                if (success) {
-                                    
-                                    [self.Romo3 stopDriving];
-                                    [self.Romo3 tiltToAngle:130 completion:^(BOOL success) {
-                                        [self.Romo3 driveBackwardWithSpeed:1.5];
-                                        
-                                    }];
-                                }
-                            }];
-                        }
                     }];
                 }
             }
-            /*else if ([string isEqualToString:@"PLAY"]) {
+            else if ([string isEqualToString:@"PLAY"]) {
                 
                 
                 NSLog(@"in play");
@@ -448,7 +426,48 @@ double excess1 = 0;
                     NSLog(@"%d", status);
                     [audioPlayer play];
                 });
-            } */
+            }
+            else if ([string isEqualToString:@"PICTURE"] || [string isEqualToString:@"PIC"]){
+                NSLog(@"in picture");
+                NSString *imagePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) lastObject];
+                NSString *imageName = [imagePath stringByAppendingPathComponent:@"MainImage.jpg"];
+                NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
+                BOOL result = [imageData writeToFile:imageName atomically:YES];
+                NSLog(@"Saved to %@? %@", imageName, (result? @"YES": @"NO"));
+            }
+            else if ([string isEqualToString:@"DANCE"]){
+                //play a song
+                NSString *url = [[NSBundle mainBundle] pathForResource:@"ComaComa"
+                                                                ofType:@"mp3"];
+                
+                NSURL *fileURL = [NSURL fileURLWithPath:url];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *err = nil;
+                    audioPlayer = [[AVAudioPlayer alloc]
+                                   initWithContentsOfURL:fileURL
+                                   error:&err];
+                    NSLog(@"%@", [err description]);
+                    BOOL status = [audioPlayer prepareToPlay];
+                    NSLog(@"%d", status);
+                    [audioPlayer play];
+                    [self.Romo3 turnByAngle:-90 withRadius:0.0 completion:^(BOOL success, float heading) {
+                        if (success) {
+                            [self.Romo3 driveForwardWithSpeed:speed1];
+                            self.Romo.expression=RMCharacterExpressionChuckle;
+                        }
+                    }];
+                    [self.Romo3 turnByAngle:90 withRadius:0.0 completion:^(BOOL success, float heading) {
+                        if (success) {
+                            [self.Romo3 driveForwardWithSpeed:speed1];
+                            self.Romo.expression=RMCharacterExpressionChuckle;
+                        }
+                    }];
+
+                });
+                
+
+            }
             else if ([string isEqualToString:@"DELETE"]) {
                 [self.Romo3 tiltByAngle:-20 completion:^(BOOL success) {
                     self.Romo.expression=RMCharacterExpressionChuckle;
