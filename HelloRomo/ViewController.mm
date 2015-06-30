@@ -813,7 +813,7 @@ double excess1 = 0;
     NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     [self log:msg];
-    //[self perform:msg];
+    [self perform:msg];
     [sock readDataWithTimeout:READ_TIMEOUT tag:0];
 }
 
