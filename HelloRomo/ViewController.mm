@@ -427,6 +427,7 @@ double takePicture =0;
                     [audioPlayer play];
                 });
             }
+<<<<<<< HEAD
             else if ([string isEqualToString:@"PICTURE"] || [string isEqualToString:@"PIC"]){
                 NSLog(@"in picture");
                 NSString *imagePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) lastObject];
@@ -468,6 +469,8 @@ double takePicture =0;
                 
 
             }
+=======
+>>>>>>> origin/master
             else if ([string isEqualToString:@"DELETE"]) {
                 [self.Romo3 tiltByAngle:-20 completion:^(BOOL success) {
                     self.Romo.expression=RMCharacterExpressionChuckle;
