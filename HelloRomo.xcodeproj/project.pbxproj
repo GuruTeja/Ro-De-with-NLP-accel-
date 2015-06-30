@@ -51,6 +51,8 @@
 		CAF4BA7E1B41DF1D001AA0DA /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4BA761B41DF1D001AA0DA /* UIWebView+AFNetworking.m */; };
 		CAF4BA801B41E046001AA0DA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4BA7F1B41E046001AA0DA /* SystemConfiguration.framework */; };
 		CAF4BA821B41E076001AA0DA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4BA811B41E076001AA0DA /* MobileCoreServices.framework */; };
+		CAF4BA861B4228A3001AA0DA /* ComaComa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CAF4BA851B4228A3001AA0DA /* ComaComa.mp3 */; };
+		CAF4BA881B4228C8001AA0DA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF4BA871B4228C8001AA0DA /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +126,8 @@
 		CAF4BA761B41DF1D001AA0DA /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		CAF4BA7F1B41E046001AA0DA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CAF4BA811B41E076001AA0DA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		CAF4BA851B4228A3001AA0DA /* ComaComa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ComaComa.mp3; sourceTree = "<group>"; };
+		CAF4BA871B4228C8001AA0DA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAF4BA881B4228C8001AA0DA /* AudioToolbox.framework in Frameworks */,
 				CAF4BA821B41E076001AA0DA /* MobileCoreServices.framework in Frameworks */,
 				CAF4BA801B41E046001AA0DA /* SystemConfiguration.framework in Frameworks */,
 				CAF4BA641B41DEE2001AA0DA /* CoreFoundation.framework in Frameworks */,
@@ -176,6 +181,7 @@
 		942AC68216E81A520062CA8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CAF4BA871B4228C8001AA0DA /* AudioToolbox.framework */,
 				CAF4BA811B41E076001AA0DA /* MobileCoreServices.framework */,
 				CAF4BA7F1B41E046001AA0DA /* SystemConfiguration.framework */,
 				CAF4BA631B41DEE2001AA0DA /* CoreFoundation.framework */,
@@ -199,6 +205,7 @@
 		942AC68916E81A520062CA8A /* HelloRomo */ = {
 			isa = PBXGroup;
 			children = (
+				CAF4BA851B4228A3001AA0DA /* ComaComa.mp3 */,
 				0E6A40C01B3218EB004E4DC1 /* GCDAsyncSocket.h */,
 				0E6A40C11B3218EB004E4DC1 /* GCDAsyncSocket.m */,
 				942AC69216E81A520062CA8A /* AppDelegate.h */,
@@ -344,6 +351,7 @@
 			files = (
 				BF3C9E4918A17DCF0024DF7A /* RMCharacter.bundle in Resources */,
 				942AC68E16E81A520062CA8A /* InfoPlist.strings in Resources */,
+				CAF4BA861B4228A3001AA0DA /* ComaComa.mp3 in Resources */,
 				942AC69616E81A520062CA8A /* Default.png in Resources */,
 				942AC69816E81A520062CA8A /* Default@2x.png in Resources */,
 				942AC69A16E81A520062CA8A /* Default-568h@2x.png in Resources */,
@@ -476,7 +484,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -502,7 +510,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

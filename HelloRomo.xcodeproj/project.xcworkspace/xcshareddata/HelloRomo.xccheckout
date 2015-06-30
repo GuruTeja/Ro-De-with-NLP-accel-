@@ -10,6 +10,8 @@
 	<string>HelloRomo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>9E6F53F05F64A09DFD5C9504300498348A564995</key>
+		<string>https://github.com/GuruTeja/Ro-De-with-NLP-accel-.git</string>
 		<key>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</key>
 		<string>https://github.com/GuruTeja/HelloRomo.git</string>
 	</dict>
@@ -17,15 +19,17 @@
 	<string>HelloRomo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</key>
+		<key>9E6F53F05F64A09DFD5C9504300498348A564995</key>
 		<string>../..</string>
+		<key>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</key>
+		<string>../../../HelloRomo</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/GuruTeja/HelloRomo.git</string>
+	<string>https://github.com/GuruTeja/Ro-De-with-NLP-accel-.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</string>
+	<string>9E6F53F05F64A09DFD5C9504300498348A564995</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>D0209062A79050CC4DBFF9FF66CA3ED3900FA54C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>HelloRomo</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9E6F53F05F64A09DFD5C9504300498348A564995</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Ro-De(with%20NLP,accel)</string>
 		</dict>
 	</array>
 </dict>

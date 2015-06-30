@@ -42,6 +42,7 @@ static BOOL _debug = NO;
     GCDAsyncSocket *listenSocket;
     
     CMMotionManager *mManager;
+    AVAudioPlayer *audioPlayer;
 }
 //NLp
 @property (nonatomic, strong) NSArray *tags;
@@ -428,7 +429,7 @@ double excess1 = 0;
                     }];
                 }
             }
-            /*else if ([string isEqualToString:@"PLAY"]) {
+            else if ([string isEqualToString:@"PLAY"]) {
                 
                 
                 NSLog(@"in play");
@@ -448,7 +449,7 @@ double excess1 = 0;
                     NSLog(@"%d", status);
                     [audioPlayer play];
                 });
-            } */
+            }
             else if ([string isEqualToString:@"DELETE"]) {
                 [self.Romo3 tiltByAngle:-20 completion:^(BOOL success) {
                     self.Romo.expression=RMCharacterExpressionChuckle;
