@@ -72,6 +72,7 @@ double j = 0;
 double confidence;
 double maxradius = 1;
 double excess1 = 0;
+<<<<<<< HEAD
 double pic =0;
 int result = 0;
 int result1 = 0; //object1
@@ -81,6 +82,9 @@ int bored_communication = 0;
 int greeting_communication = 0;
 int stop = 0;
 
+=======
+double takePicture =0;
+>>>>>>> origin/master
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -226,12 +230,23 @@ int stop = 0;
 //Multiple ojbect detection
 - (void)didCaptureIplImage:(IplImage *)iplImage
 {
+<<<<<<< HEAD
     
     //bring Ro-De to 90 degress positon to see the images
     [self.Romo3 tiltToAngle:95 completion:^(BOOL success) {
     }];
     
     //    [self.view bringSubviewToFront:self.thumbNailImageView];
+=======
+    //save the image
+    if(takePicture > 0){
+        NSString *imagePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *imageName = [imagePath stringByAppendingPathComponent:@"MainImage.jpg"];
+        NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
+        BOOL result = [imageData writeToFile:imageName atomically:YES];
+        NSLog(@"Saved to %@? %@", imageName, (result? @"YES": @"NO"));
+    }
+>>>>>>> origin/master
     
     //ipl image is in BGR format, it needs to be converted to RGB for display in UIImageView
     IplImage *imgRGB = cvCreateImage(cvGetSize(iplImage), IPL_DEPTH_8U, 1);
@@ -624,6 +639,7 @@ int stop = 0;
                                 }
                             }];
                         }
+<<<<<<< HEAD
                     }
                     
                     
@@ -725,6 +741,10 @@ int stop = 0;
                     [self speakText:@"YES I CAN SING, DO YOU WANT ME TO SING ?"];
                 }else{
                     [self speakText:@"Ofcourse i can sing, DO YOU WANT ME TO SING ?"];
+=======
+                        //stop in excess decination
+                    }];
+>>>>>>> origin/master
                 }
                 sing_communication = sing_communication +1;
                 bored_communication = 2;
@@ -750,10 +770,96 @@ int stop = 0;
                     bored_communication = 0;
                 });
             }
+<<<<<<< HEAD
             else if (dance_communication == 1){
                 [self speakText:@"Lets roll"];
                 NSString *url = [[NSBundle mainBundle] pathForResource:@"ComaComa"
                                                                 ofType:@"mp3"];
+=======
+<<<<<<< HEAD
+            else if ([string isEqualToString:@"PICTURE"] || [string isEqualToString:@"PIC"]){
+                NSLog(@"in picture");
+                NSString *imagePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) lastObject];
+                NSString *imageName = [imagePath stringByAppendingPathComponent:@"MainImage.jpg"];
+                NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
+                BOOL result = [imageData writeToFile:imageName atomically:YES];
+                NSLog(@"Saved to %@? %@", imageName, (result? @"YES": @"NO"));
+            }
+            else if ([string isEqualToString:@"DANCE"]){
+                //play a song
+                NSString *url = [[NSBundle mainBundle] pathForResource:@"ComaComa"
+                                                                ofType:@"mp3"];
+                
+                NSURL *fileURL = [NSURL fileURLWithPath:url];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSError *err = nil;
+                    audioPlayer = [[AVAudioPlayer alloc]
+                                   initWithContentsOfURL:fileURL
+                                   error:&err];
+                    NSLog(@"%@", [err description]);
+                    BOOL status = [audioPlayer prepareToPlay];
+                    NSLog(@"%d", status);
+                    [audioPlayer play];
+                    [self.Romo3 turnByAngle:-90 withRadius:0.0 completion:^(BOOL success, float heading) {
+                        if (success) {
+                            [self.Romo3 driveForwardWithSpeed:speed1];
+                            self.Romo.expression=RMCharacterExpressionChuckle;
+                        }
+                    }];
+                    [self.Romo3 turnByAngle:90 withRadius:0.0 completion:^(BOOL success, float heading) {
+                        if (success) {
+                            [self.Romo3 driveForwardWithSpeed:speed1];
+                            self.Romo.expression=RMCharacterExpressionChuckle;
+                        }
+                    }];
+
+                });
+                
+
+            }
+=======
+>>>>>>> origin/master
+            else if ([string isEqualToString:@"DELETE"]) {
+                [self.Romo3 tiltByAngle:-20 completion:^(BOOL success) {
+                    self.Romo.expression=RMCharacterExpressionChuckle;
+                    self.Romo.emotion=RMCharacterEmotionHappy;
+                }];
+                
+            }
+            else if ([string isEqualToString:@"10 METRES"]) {
+                speed=speed1-0.2;
+                [self.Romo3 driveWithRadius:1.1 speed:speed];
+                
+                //[self.Romo3 turnByAngle:0 withRadius:1.1 completion:^(BOOL success, float heading) ];
+                
+            }
+            else if ([string isEqualToString:@"20 METRES"]) {
+                speed=speed1-0.3;
+                [self.Romo3 turnByAngle:0 withRadius:.30 completion:^(BOOL success, float heading) {
+                    if (success) {
+                        [self.Romo3 driveWithRadius:RM_DRIVE_RADIUS_STRAIGHT speed:0.3];
+                    }
+                }];
+                
+            }
+            else if ([string isEqualToString:@"30 METRES"]) {
+                speed=speed1-0.3;
+                [self.Romo3 turnByAngle:0 withRadius:.30 completion:^(BOOL success, float heading) {
+                    if (success) {
+                        [self.Romo3 driveWithRadius:0.3 speed:0.3];
+                    }
+                }];
+                
+            }
+            else if ([string isEqualToString:@"BACKWARD"]) {
+                speed=speed1-0.3;
+                [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+                    if (success) {
+                        [self.Romo3 driveBackwardWithSpeed:speed];
+                    }
+                }];
+>>>>>>> origin/master
                 
                 NSURL *fileURL = [NSURL fileURLWithPath:url];
                 
