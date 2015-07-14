@@ -25,6 +25,11 @@
     swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeGesture];
     
+     triggerImageURL = [[NSBundle mainBundle] pathForResource:@"Robo" ofType:@"bmp"];
+     triggerImageURL1 = [[NSBundle mainBundle] pathForResource:@"lays" ofType:@"bmp"];
+     triggerImageURL2 = [[NSBundle mainBundle] pathForResource:@"left" ofType:@"bmp"];
+     triggerImageURL3 = [[NSBundle mainBundle] pathForResource:@"right" ofType:@"bmp"];
+     triggerImageURL4 = [[NSBundle mainBundle] pathForResource:@"slowdown" ofType:@"bmp"];
     //[self flipAction];
 }
 
@@ -245,7 +250,25 @@ static void ReleaseDataCallback(void *info, const void *data, size_t size)
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *uiImage = [self getUIImageFromIplImage:iplImage];
         _imageView.image = uiImage;
+
+        });
+
+}
+
+- (void)saveFinishProcessingImage:(IplImage *)iplImage
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *uiImage = [self getUIImageFromIplImage:iplImage];
+        _imageView.image = uiImage;
+        
+        NSString *imagePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *imageName = [imagePath stringByAppendingPathComponent:@"MainImage.jpg"];
+        NSData *imageData = UIImageJPEGRepresentation(uiImage, 1.0);
+        BOOL result = [imageData writeToFile:imageName atomically:YES];
+        NSLog(@"Saved to %@? %@", imageName, (result? @"YES": @"NO"));
+        
     });
+    
 }
 
 

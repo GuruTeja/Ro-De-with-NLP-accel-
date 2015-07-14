@@ -11,12 +11,19 @@
     AVCaptureDevice *_captureDevice;
     
     BOOL _useBackCamera;
+    
+    NSString *triggerImageURL;
+    NSString *triggerImageURL1;
+    NSString *triggerImageURL2;
+    NSString *triggerImageURL3;
+    NSString *triggerImageURL4;
 }
 
 
 - (UIImage*)getUIImageFromIplImage:(IplImage *)iplImage;
 - (void)didCaptureIplImage:(IplImage *)iplImage;
 - (void)didFinishProcessingImage:(IplImage *)iplImage;
+- (void)saveFinishProcessingImage:(IplImage *)iplImage;
 
 
 @end
