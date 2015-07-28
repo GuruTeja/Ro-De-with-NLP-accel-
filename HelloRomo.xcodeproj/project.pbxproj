@@ -30,13 +30,15 @@
 		CA889EC91B3E3B1A00295B78 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA889EC81B3E3B1A00295B78 /* CoreVideo.framework */; };
 		CA889ECB1B3E3B2600295B78 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA889ECA1B3E3B2600295B78 /* CoreMedia.framework */; };
 		CA889ECD1B3E3C4C00295B78 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA889ECC1B3E3C4C00295B78 /* opencv2.framework */; };
+		CACE84D11B64C6CA0031E797 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CACE84D01B64C6CA0031E797 /* ViewController.xib */; };
+		CACE84D31B64D0DE0031E797 /* url.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CACE84D21B64D0DE0031E797 /* url.jpg */; };
 		CADDA4751B54B1BA00289BED /* IMG3.bmp in Resources */ = {isa = PBXBuildFile; fileRef = CADDA4741B54B1BA00289BED /* IMG3.bmp */; };
 		CADDA47D1B54E7B700289BED /* powerade.bmp in Resources */ = {isa = PBXBuildFile; fileRef = CADDA47C1B54E7B700289BED /* powerade.bmp */; };
 		CADDA47F1B54E9E300289BED /* guitar.bmp in Resources */ = {isa = PBXBuildFile; fileRef = CADDA47E1B54E9E300289BED /* guitar.bmp */; };
-		CADDA4811B54EAA800289BED /* lays.bmp in Resources */ = {isa = PBXBuildFile; fileRef = CADDA4801B54EAA700289BED /* lays.bmp */; };
 		CADDA4851B55067400289BED /* Ball1.bmp in Resources */ = {isa = PBXBuildFile; fileRef = CADDA4841B55067400289BED /* Ball1.bmp */; };
 		CADDA4871B552FE700289BED /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CADDA4861B552FE700289BED /* ViewController.mm */; };
 		CADDA48F1B553CD300289BED /* Robo.bmp in Resources */ = {isa = PBXBuildFile; fileRef = CADDA48E1B553CD300289BED /* Robo.bmp */; };
+		CADDA4951B5614F100289BED /* lays.bmp in Resources */ = {isa = PBXBuildFile; fileRef = CADDA4941B5614F100289BED /* lays.bmp */; };
 		CAF4BA5A1B41DE89001AA0DA /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4BA481B41DE89001AA0DA /* AFHTTPRequestOperation.m */; };
 		CAF4BA5B1B41DE89001AA0DA /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4BA4A1B41DE89001AA0DA /* AFHTTPRequestOperationManager.m */; };
 		CAF4BA5C1B41DE89001AA0DA /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF4BA4C1B41DE89001AA0DA /* AFHTTPSessionManager.m */; };
@@ -96,13 +98,15 @@
 		CA889EC81B3E3B1A00295B78 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		CA889ECA1B3E3B2600295B78 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		CA889ECC1B3E3C4C00295B78 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		CACE84D01B64C6CA0031E797 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		CACE84D21B64D0DE0031E797 /* url.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = url.jpg; sourceTree = "<group>"; };
 		CADDA4741B54B1BA00289BED /* IMG3.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = IMG3.bmp; sourceTree = "<group>"; };
 		CADDA47C1B54E7B700289BED /* powerade.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = powerade.bmp; sourceTree = "<group>"; };
 		CADDA47E1B54E9E300289BED /* guitar.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = guitar.bmp; sourceTree = "<group>"; };
-		CADDA4801B54EAA700289BED /* lays.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = lays.bmp; sourceTree = "<group>"; };
 		CADDA4841B55067400289BED /* Ball1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = Ball1.bmp; sourceTree = "<group>"; };
 		CADDA4861B552FE700289BED /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		CADDA48E1B553CD300289BED /* Robo.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = Robo.bmp; sourceTree = "<group>"; };
+		CADDA4941B5614F100289BED /* lays.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = lays.bmp; sourceTree = "<group>"; };
 		CAF4BA471B41DE89001AA0DA /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		CAF4BA481B41DE89001AA0DA /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		CAF4BA491B41DE89001AA0DA /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -225,9 +229,10 @@
 		942AC68916E81A520062CA8A /* HelloRomo */ = {
 			isa = PBXGroup;
 			children = (
+				CACE84D21B64D0DE0031E797 /* url.jpg */,
+				CADDA4941B5614F100289BED /* lays.bmp */,
 				CADDA48E1B553CD300289BED /* Robo.bmp */,
 				CADDA4841B55067400289BED /* Ball1.bmp */,
-				CADDA4801B54EAA700289BED /* lays.bmp */,
 				CADDA47E1B54E9E300289BED /* guitar.bmp */,
 				CADDA47C1B54E7B700289BED /* powerade.bmp */,
 				CADDA4741B54B1BA00289BED /* IMG3.bmp */,
@@ -244,6 +249,7 @@
 				CA889EC11B3E3AC200295B78 /* AbstractOCVViewController.m */,
 				942AC69B16E81A520062CA8A /* ViewController.h */,
 				CADDA4861B552FE700289BED /* ViewController.mm */,
+				CACE84D01B64C6CA0031E797 /* ViewController.xib */,
 				942AC68A16E81A520062CA8A /* Supporting Files */,
 			);
 			path = HelloRomo;
@@ -380,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CADDA47D1B54E7B700289BED /* powerade.bmp in Resources */,
+				CACE84D11B64C6CA0031E797 /* ViewController.xib in Resources */,
 				CADDA4851B55067400289BED /* Ball1.bmp in Resources */,
 				CAF4BA9A1B4326C8001AA0DA /* left.bmp in Resources */,
 				BF3C9E4918A17DCF0024DF7A /* RMCharacter.bundle in Resources */,
@@ -387,13 +394,14 @@
 				CAF4BA8E1B42988A001AA0DA /* stop1.bmp in Resources */,
 				CAF4BA861B4228A3001AA0DA /* ComaComa.mp3 in Resources */,
 				CADDA48F1B553CD300289BED /* Robo.bmp in Resources */,
+				CACE84D31B64D0DE0031E797 /* url.jpg in Resources */,
 				942AC69616E81A520062CA8A /* Default.png in Resources */,
 				CAF4BA981B42FF60001AA0DA /* go.bmp in Resources */,
-				CADDA4811B54EAA800289BED /* lays.bmp in Resources */,
 				CADDA47F1B54E9E300289BED /* guitar.bmp in Resources */,
 				942AC69816E81A520062CA8A /* Default@2x.png in Resources */,
 				CADDA4751B54B1BA00289BED /* IMG3.bmp in Resources */,
 				CAF4BA9C1B432704001AA0DA /* right.bmp in Resources */,
+				CADDA4951B5614F100289BED /* lays.bmp in Resources */,
 				942AC69A16E81A520062CA8A /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,7 +478,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -495,7 +503,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -525,6 +533,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -552,6 +561,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};

@@ -57,6 +57,8 @@ static const NSTimeInterval accelerometerMin = 0.1;
 @property (nonatomic, retain) AVSpeechSynthesizer *synthesizer;
 @property (nonatomic, assign) float speed;
 @property (nonatomic, retain) NSString *voice;
+//Sign Images
+@property (weak, nonatomic) IBOutlet UIImageView *imgRef;
 @end
 
 @implementation ViewController
@@ -72,19 +74,32 @@ double j = 0;
 double confidence;
 double maxradius = 1;
 double excess1 = 0;
-<<<<<<< HEAD
+
 double pic =0;
 int result = 0;
+int start = 0;
+int start1 = 0;
 int result1 = 0; //object1
 int sing_communication = 0;
 int dance_communication = 0;
 int bored_communication = 0;
 int greeting_communication = 0;
+int sign_language = 0;
+int stop_greet = 0;
+int stop_greet1 = 0;
+
+NSDate *greet_time;
+NSDate *nextgreet_time;
+
+NSDate *greet_time1;
+NSDate *nextgreet_time1;
+//NSTimeInterval *stopgreet_time;
+
 int stop = 0;
 
-=======
+
 double takePicture =0;
->>>>>>> origin/master
+// origin/master
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -113,131 +128,41 @@ double takePicture =0;
     [self toggleSocketState];   //Starting the Socket
     
     //-[self startUpdatesWithSliderValue:100];
-    //-[self perform:@"GO"];
-    NSLog(@"out of method");
-    [self tappedOnRed];
+   // NSLog(@"out of method");
+    //[self tappedOnRed];
     
+    //[self signlanguageimage:@"who"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     // Add Romo's face to self.view whenever the view will appear
-    [self.Romo addToSuperview:self.view];
+    [self.Romo addToSuperview:self.romoView];
 }
 
 - (void)tappedOnRed {
     _min = 160;
     _max = 179;
     
-    NSLog(@"%.2f - %.2f", _min, _max);
+    //NSLog(@"%.2f - %.2f", _min, _max);
 }
 
 #pragma mark - OpenCV color detection
 
-
-////color identification RED
-//- (void)didCaptureIplImage:(IplImage *)iplImage
-//{
-//    //ipl image is in BGR format, it needs to be converted to RGB for display in UIImageView
-//    IplImage *imgRGB = cvCreateImage(cvGetSize(iplImage), IPL_DEPTH_8U, 3);
-//    /* Converts input array pixels from one color space to another */
-//    cvCvtColor(iplImage, imgRGB, CV_BGR2RGB);
-//    Mat matRGB = Mat(imgRGB);
-//
-//    //ipl image is also converted to HSV; hue is used to find certain color
-//    IplImage *imgHSV = cvCreateImage(cvGetSize(iplImage), 8, 3);
-//    cvCvtColor(iplImage, imgHSV, CV_BGR2HSV);
-//
-//    IplImage *imgThreshed = cvCreateImage(cvGetSize(iplImage), 8, 1);
-//
-//    //it is important to release all images EXCEPT the one that is going to be passed to
-//    //the didFinishProcessingImage: method and displayed in the UIImageView
-//    cvReleaseImage(&iplImage);
-//
-//    //filter all pixels in defined range, everything in range will be white, everything else
-//    //is going to be black
-//    cvInRangeS(imgHSV, cvScalar(_min, 100, 100), cvScalar(_max, 255, 255), imgThreshed);
-//
-//    cvReleaseImage(&imgHSV);
-//
-//    Mat matThreshed = Mat(imgThreshed);
-//
-//    //smooths edges
-//    cv::GaussianBlur(matThreshed,
-//                     matThreshed,
-//                     cv::Size(9, 9),
-//                     2,
-//                     2);
-//
-//    //debug shows threshold image, otherwise the circles are detected in the
-//    //threshold image and shown in the RGB image
-//    if (_debug)
-//    {
-//        cvReleaseImage(&imgRGB);
-//        [self didFinishProcessingImage:imgThreshed];
-//    }
-//    else
-//    {
-//        vector<Vec3f> circles;
-//
-//        //get circles
-//        HoughCircles(matThreshed,
-//                     circles,
-//                     CV_HOUGH_GRADIENT,
-//                     2,
-//                     matThreshed.rows / 4,
-//                     150,
-//                     75,
-//                     10,
-//                     150);
-//
-//        for (size_t i = 0; i < circles.size(); i++)
-//        {
-//            cout << "Circle position x = " << (int)circles[i][0] << ", y = " << (int)circles[i][1] << ", radius = " << (int)circles[i][2] << "\n";
-//
-//            cv::Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
-//
-//            int radius = cvRound(circles[i][2]);
-//            int radius1 = radius;
-//            maxradius = MAX(maxradius, radius1);
-//            j = j + (i+1);
-//            circle(matRGB, center, 3, Scalar(0, 255, 0), -1, 8, 0);
-//            circle(matRGB, center, radius, Scalar(0, 0, 255), 3, 8, 0);
-//        }
-//
-//        confidence = j/100;
-//        //NSLog(@"confidence value is:%f",confidence);
-//        if (confidence > 0.10 & maxradius > 20) {
-//            NSLog(@"confidence level reached to stop the romo");
-//            self.Romo.expression=RMCharacterExpressionAngry;
-//            self.Romo.emotion=RMCharacterEmotionBewildered;
-//            [self.Romo3 stopDriving];
-//            _debug = YES;
-//            [mManager stopAccelerometerUpdates];
-//
-//        }
-//        //threshed image is not needed any more and needs to be released
-//        cvReleaseImage(&imgThreshed);
-//
-//        //imgRGB will be released once it is not needed, the didFinishProcessingImage:
-//        //method will take care of that
-//        [self didFinishProcessingImage:imgRGB];
-//    }
-//}
 
 #pragma mark - open cv object recognization
 
 //Multiple ojbect detection
 - (void)didCaptureIplImage:(IplImage *)iplImage
 {
-<<<<<<< HEAD
+    
     
     //bring Ro-De to 90 degress positon to see the images
-    [self.Romo3 tiltToAngle:95 completion:^(BOOL success) {
-    }];
+    //[self.Romo3 tiltToAngle:95 completion:^(BOOL success) {
+    //}];
     
     //    [self.view bringSubviewToFront:self.thumbNailImageView];
-=======
+    
     //save the image
     if(takePicture > 0){
         NSString *imagePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
@@ -246,8 +171,6 @@ double takePicture =0;
         BOOL result = [imageData writeToFile:imageName atomically:YES];
         NSLog(@"Saved to %@? %@", imageName, (result? @"YES": @"NO"));
     }
->>>>>>> origin/master
-    
     //ipl image is in BGR format, it needs to be converted to RGB for display in UIImageView
     IplImage *imgRGB = cvCreateImage(cvGetSize(iplImage), IPL_DEPTH_8U, 1);
     //    cvCvtColor(iplImage, imgRGB, CV_BGR2GRAY);
@@ -323,7 +246,7 @@ double takePicture =0;
         //        cvError(0,"MatchFinder","2nd key points descriptor empty",__FILE__,__LINE__);
     }
     else {
-        NSLog(@"object detection");
+        //NSLog(@"object detection");
         FlannBasedMatcher matcher,matcher1;
         std::vector< DMatch > matches,matches1;
         
@@ -336,7 +259,7 @@ double takePicture =0;
         if ( descriptors_scene1.empty() )
             cvError(0,"MatchFinder","4th descriptor empty",__FILE__,__LINE__);
         else
-            NSLog(@"ur here");
+            //NSLog(@"ur here");
         matcher.match( descriptors_object, descriptors_scene, matches );
         matcher.match( descriptors_object1, descriptors_scene1, matches1);//object2 -*matches1*
         
@@ -350,8 +273,8 @@ double takePicture =0;
             if( dist > max_dist ) max_dist = dist;
         }
         
-        printf("-- Max dist for object1 : %f \n", max_dist );
-        printf("-- Min dist for object1 : %f \n", min_dist );
+        //printf("-- Max dist for object1 : %f \n", max_dist );
+        //printf("-- Min dist for object1 : %f \n", min_dist );
         
         //object2
         for( int i = 0; i < descriptors_object1.rows; i++ )
@@ -360,8 +283,8 @@ double takePicture =0;
             if( dist1 > max_dist1 ) max_dist1 = dist1;
         }
         
-        printf("-- Max dist for object2 : %f \n", max_dist1 );
-        printf("-- Min dist for object2 : %f \n", min_dist1 );
+        //printf("-- Max dist for object2 : %f \n", max_dist1 );
+        //printf("-- Min dist for object2 : %f \n", min_dist1 );
         
         //-- Draw only "good" matches (i.e. whose distance is less than 3*min_dist )
         std::vector< DMatch > good_matches, good_matches1;
@@ -426,25 +349,58 @@ double takePicture =0;
         line( img_matches, scene_corners[3] + Point2f( img_object.cols, 0), scene_corners[0] + Point2f( img_object.cols, 0), Scalar( 0, 255, 0), 4 );
         
         double area = contourArea(scene_corners);
-        cout<<"\nArea of object1 : "<<area;
+        //cout<<"\nArea of object1 : "<<area;
         
-        if(area>120000)
+        if(area>60000)
         {
-            if(result >= 1){
-                [self.Romo3 stopDriving];
+            
+            
+            if (stop_greet == 1){
+                
+                nextgreet_time = [NSDate date];
+                NSTimeInterval stopgreet_time = [nextgreet_time timeIntervalSinceDate:greet_time];
+                stopgreet_time = stopgreet_time/60.0;
+                NSString* time = [NSString stringWithFormat:@"%f", stopgreet_time];
+                NSLog(@"time is %@",time);
+                if(stopgreet_time > 0.4){
+                    start = 0;
+                }
+                else{
+                    start = 1;
+                }
+            }
+            
+            if(start == 0){
+                //if(result >= 1){
+                
+                [self.Romo3 stopAllMotion];
                 cout<<"\n GOT IT !!!!\n Robo detected";
-                //self.Romo.expression=RMCharacterExpressionChuckle;
+                greet_time = [NSDate date];
                 self.Romo.emotion=RMCharacterEmotionHappy;
-                [self speakText:@"Hi Robo, this is  Rocky . Nice to meet you"];
+                [self speakText:@"Hi Robo, this is  Rody . Nice to meet you"];
+                result = 0;
+                stop_greet = 1;
                 [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
                     if (success) {
+                        self.Romo.expression=RMCharacterExpressionExcited;
+                        self.Romo.emotion=RMCharacterEmotionCurious;
                         [self.Romo3 driveForwardWithSpeed:0.2];
                         [self.Romo3 stopDriving];
+                        [self.Romo3 stopAllMotion];
+                        
                     }
                 }];
-                result = 0;
+                //pause process for 2 seconds
+                double delayInSeconds = 3.0; // number of seconds to wait
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    //NSLog(@"\n in wait function");
+                });
+                
+                //}
+                //result = result + 1;
             }
-            result = result + 1;
+            
         }
         //object2
         //-- Get the corners from the image_2 ( the object to be "detected" )
@@ -465,17 +421,35 @@ double takePicture =0;
         
         //object2
         double area1 = contourArea(scene_corners1);
-        cout<<"\nArea of object2 : "<<area1;
-        if (area1>800)
+        //cout<<"\nArea of object2 : "<<area1;
+        if (area1>5000)
         {
             
-            if(result1 > 1){
-                cout<<"\n GOT IT !!!!\n detected is lays";
-                [self speakText:@"It's Lays. I'm So hungry, lets eat"];
-                self.Romo.emotion=RMCharacterEmotionDelighted;
-                result1 = 0;
+            if (stop_greet1 == 1){
+                nextgreet_time1 = [NSDate date];
+                NSTimeInterval stopgreet_time1 = [nextgreet_time1 timeIntervalSinceDate:greet_time1];
+                stopgreet_time1 = stopgreet_time1/60.0;
+                NSString* time1 = [NSString stringWithFormat:@"%f", stopgreet_time1];
+                NSLog(@"%@",time1);
+                if(stopgreet_time1 > 0.4){
+                    start1 = 0;
+                }
+                else{
+                    start1 = 1;
+                }
             }
-            result1 = result1 +1;
+            
+            if(start1 == 0){
+                //if(result1 >= 1){
+                cout<<"\n GOT IT !!!!\n detected is lays";
+                [self speakText:@"It's Lays. Hide it. Prady likes it !"];
+                self.Romo.emotion=RMCharacterEmotionDelighted;
+                //result1 = 0;
+                stop_greet1 = 1;
+                //}
+                //result1 = result1 + 1;
+            }
+            
         }
         
         
@@ -505,13 +479,17 @@ double takePicture =0;
     return @"";
 }
 
+
 - (void)perform:(NSString *)command {
+    
+    [self.Romo3 tiltToAngle:120 completion:^(BOOL success) {
+    }];
     
     NSString *cmd = [command uppercaseString];
     
 #pragma mark -
 #pragma mark Accelerometer intialization
-    NSLog(@"in startUpdateswithSliderValue Accelerometer");
+    //NSLog(@"in startUpdateswithSliderValue Accelerometer");
     NSTimeInterval delta = 0.005;
     NSTimeInterval updateInterval = accelerometerMin + delta * 100;
     
@@ -541,7 +519,15 @@ double takePicture =0;
         string = [responseObject objectForKey:@"sentence"];
         //for (string in _tokens){
         NSLog(@"string in token is:%@",string);
-        if([string isEqualToString:@"NAME"] || [string isEqualToString:@"WHAT IS YOUR NAME"]){
+        
+        if(sign_language > 0){
+            
+            NSString *stringtemp = [command lowercaseString];
+            [self signlanguageimage:stringtemp];
+            
+        }
+        
+        else if([string isEqualToString:@"NAME"] || [string isEqualToString:@"WHAT IS YOUR NAME"]){
             NSLog(@"%@",cmd);
             [mManager stopAccelerometerUpdates];
             //[self speakText:_sentenceTextField.text];
@@ -549,7 +535,7 @@ double takePicture =0;
             // ->take a look [cmd resignFirstResponder];
         }
         //Accelerometer data starts with NLp message check
-        else if ([string isEqualToString:@"GO"] || [string isEqualToString:@"START"]) {
+        else if ([string isEqualToString:@"GO"]) {
             //intialize the Ro-De head tilt position to 120
             NSLog(@"in go");
             [self.Romo3 tiltToAngle:120 completion:^(BOOL success) {
@@ -639,7 +625,6 @@ double takePicture =0;
                                 }
                             }];
                         }
-<<<<<<< HEAD
                     }
                     
                     
@@ -726,7 +711,26 @@ double takePicture =0;
         }
         else if([string isEqualToString:@"PICTURE"]){
             //[self saveFinishProcessingImage:];
-            pic = 1;
+            // pic = 1;
+            AVCaptureConnection *videoConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+            if (videoConnection == nil) {
+                return;
+            }
+            
+            // ビデオ入力から画像を非同期で取得。ブロックで定義されている処理が呼び出され、画像データを引数から取得する
+            [self.stillImageOutput
+             captureStillImageAsynchronouslyFromConnection:videoConnection
+             completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+                 if (imageDataSampleBuffer == NULL) {
+                     return;
+                 }
+                 // 入力された画像データからJPEGフォーマットとしてデータを取得
+                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+                 // JPEGデータからUIImageを作成
+                 UIImage *image = [[UIImage alloc] initWithData:imageData];
+                 // アルバムに画像を保存
+                 UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+             }];
         }
         else if ([string isEqualToString:@"PLAY"]|| [string isEqualToString:@"CAN YOU SING"] || [string isEqualToString:@"YES"] || [string isEqualToString:@"I AM BORED"]) {
             
@@ -741,10 +745,6 @@ double takePicture =0;
                     [self speakText:@"YES I CAN SING, DO YOU WANT ME TO SING ?"];
                 }else{
                     [self speakText:@"Ofcourse i can sing, DO YOU WANT ME TO SING ?"];
-=======
-                        //stop in excess decination
-                    }];
->>>>>>> origin/master
                 }
                 sing_communication = sing_communication +1;
                 bored_communication = 2;
@@ -770,96 +770,11 @@ double takePicture =0;
                     bored_communication = 0;
                 });
             }
-<<<<<<< HEAD
+            //for dance
             else if (dance_communication == 1){
                 [self speakText:@"Lets roll"];
                 NSString *url = [[NSBundle mainBundle] pathForResource:@"ComaComa"
                                                                 ofType:@"mp3"];
-=======
-<<<<<<< HEAD
-            else if ([string isEqualToString:@"PICTURE"] || [string isEqualToString:@"PIC"]){
-                NSLog(@"in picture");
-                NSString *imagePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) lastObject];
-                NSString *imageName = [imagePath stringByAppendingPathComponent:@"MainImage.jpg"];
-                NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
-                BOOL result = [imageData writeToFile:imageName atomically:YES];
-                NSLog(@"Saved to %@? %@", imageName, (result? @"YES": @"NO"));
-            }
-            else if ([string isEqualToString:@"DANCE"]){
-                //play a song
-                NSString *url = [[NSBundle mainBundle] pathForResource:@"ComaComa"
-                                                                ofType:@"mp3"];
-                
-                NSURL *fileURL = [NSURL fileURLWithPath:url];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSError *err = nil;
-                    audioPlayer = [[AVAudioPlayer alloc]
-                                   initWithContentsOfURL:fileURL
-                                   error:&err];
-                    NSLog(@"%@", [err description]);
-                    BOOL status = [audioPlayer prepareToPlay];
-                    NSLog(@"%d", status);
-                    [audioPlayer play];
-                    [self.Romo3 turnByAngle:-90 withRadius:0.0 completion:^(BOOL success, float heading) {
-                        if (success) {
-                            [self.Romo3 driveForwardWithSpeed:speed1];
-                            self.Romo.expression=RMCharacterExpressionChuckle;
-                        }
-                    }];
-                    [self.Romo3 turnByAngle:90 withRadius:0.0 completion:^(BOOL success, float heading) {
-                        if (success) {
-                            [self.Romo3 driveForwardWithSpeed:speed1];
-                            self.Romo.expression=RMCharacterExpressionChuckle;
-                        }
-                    }];
-
-                });
-                
-
-            }
-=======
->>>>>>> origin/master
-            else if ([string isEqualToString:@"DELETE"]) {
-                [self.Romo3 tiltByAngle:-20 completion:^(BOOL success) {
-                    self.Romo.expression=RMCharacterExpressionChuckle;
-                    self.Romo.emotion=RMCharacterEmotionHappy;
-                }];
-                
-            }
-            else if ([string isEqualToString:@"10 METRES"]) {
-                speed=speed1-0.2;
-                [self.Romo3 driveWithRadius:1.1 speed:speed];
-                
-                //[self.Romo3 turnByAngle:0 withRadius:1.1 completion:^(BOOL success, float heading) ];
-                
-            }
-            else if ([string isEqualToString:@"20 METRES"]) {
-                speed=speed1-0.3;
-                [self.Romo3 turnByAngle:0 withRadius:.30 completion:^(BOOL success, float heading) {
-                    if (success) {
-                        [self.Romo3 driveWithRadius:RM_DRIVE_RADIUS_STRAIGHT speed:0.3];
-                    }
-                }];
-                
-            }
-            else if ([string isEqualToString:@"30 METRES"]) {
-                speed=speed1-0.3;
-                [self.Romo3 turnByAngle:0 withRadius:.30 completion:^(BOOL success, float heading) {
-                    if (success) {
-                        [self.Romo3 driveWithRadius:0.3 speed:0.3];
-                    }
-                }];
-                
-            }
-            else if ([string isEqualToString:@"BACKWARD"]) {
-                speed=speed1-0.3;
-                [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
-                    if (success) {
-                        [self.Romo3 driveBackwardWithSpeed:speed];
-                    }
-                }];
->>>>>>> origin/master
                 
                 NSURL *fileURL = [NSURL fileURLWithPath:url];
                 
@@ -873,69 +788,220 @@ double takePicture =0;
                     NSLog(@"%d", status);
                     [audioPlayer play];
                 });
-                for(int i = 0; i<2; i++){
-                    [self.Romo3 turnByAngle:-90 withRadius:0.0 completion:^(BOOL success, float heading) {
+                
+                //light pulse
+                [self.Romo3.LEDs pulseWithPeriod:1.0 direction:RMCoreLEDPulseDirectionUpAndDown];
+                // check if flashlight available
+                Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+                if (captureDeviceClass != nil) {
+                    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+                    if ([device hasTorch] && [device hasFlash]){
+                        [device lockForConfiguration:nil];
+                        [device setTorchMode:AVCaptureTorchModeOn];
+                        [device setFlashMode:AVCaptureFlashModeOn];
+                        [self speakText:@"Light ON"];
+                        [device unlockForConfiguration];
+                    }
+                }
+                
+                for(int i = 0; i< 4 ; i ++){
+                    [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
                         if (success) {
-                            [self.Romo3 driveForwardWithSpeed:speed1];
-                            self.Romo.emotion=RMCharacterEmotionHappy;
-                            [self.Romo3 tiltToAngle:80 completion:^(BOOL success) {
-                                self.Romo.emotion=RMCharacterEmotionExcited;
-                            }];
-                            
-                        }
-                    }];
-                    [self.Romo3 turnByAngle:90 withRadius:0.0 completion:^(BOOL success, float heading) {
-                        if (success) {
-                            [self.Romo3 driveBackwardWithSpeed:speed1];
-                            self.Romo.emotion=RMCharacterEmotionHappy;
-                            [self.Romo3 tiltToAngle:130 completion:^(BOOL success) {
-                                self.Romo.emotion=RMCharacterEmotionExcited;
-                            }];
-                            
-                        }
-                    }];
-                    [self.Romo3 turnByAngle:40 withRadius:0.0 completion:^(BOOL success, float heading) {
-                        if (success) {
-                            [self.Romo3 turnByAngle:40 withRadius:0.0 completion:^(BOOL success, float heading) {
+                            [self.Romo3 driveForwardWithSpeed:0.3];
+                            [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
                                 if (success) {
-                                    
-                                    [self.Romo3 tiltToAngle:100 completion:^(BOOL success) {
-                                        self.Romo.emotion=RMCharacterEmotionExcited;
-                                    }];
+                                    for(int j =0 ;j < 2; j++)
+                                    {
+                                        [self.Romo3 driveBackwardWithSpeed:0.3];
+                                        [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                            if (success) {
+                                                [self.Romo3 driveForwardWithSpeed:0.3];
+                                                [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                    if (success) {
+                                                        [self.Romo3 stopAllMotion];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                    }
                                 }
                             }];
                         }
                     }];
-                    
-                    sing_communication  = 0;
-                    dance_communication = 0;
-                    bored_communication = 0;
                 }
+                sing_communication  = 0;
+                dance_communication = 0;
+                bored_communication = 0;
+                
+                //flash lights off
+                AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+                if ([device hasTorch] && [device hasFlash]){
+                    [device lockForConfiguration:nil];
+                    [device setTorchMode:AVCaptureTorchModeOff];
+                    [device setFlashMode:AVCaptureFlashModeOff];
+                    [self speakText:@"Light OFF"];
+                    [device unlockForConfiguration];
+                }
+                
             }
         }
-        else if ([string isEqualToString:@"TEST"]){
-            
-            [self.Romo3 turnByAngle:-70 withRadius:0.0 completion:^(BOOL success, float heading) {
-                if (success) {
-                    self.Romo.expression = RMCharacterExpressionHappy;
-                    [self.Romo3 turnByAngle:70 withRadius:0.05 completion:^(BOOL success, float heading) {
-                        if (success) {
-                            self.Romo.expression = RMCharacterExpressionSad;
-                            self.Romo.emotion= RMCharacterEmotionSad;
-                            [self.Romo3 driveForwardWithSpeed:0.5];
-                            [self.Romo3 tiltToAngle:120 completion:^(BOOL success) {
-                                self.Romo.expression= RMCharacterExpressionPonder;
-                                self.Romo.emotion=RMCharacterEmotionExcited;
-                                [self.Romo3 driveBackwardWithSpeed:0.5];
-                                [self.Romo3 stopDriving];
-                            }];
-                        }
-                    }];
+        
+        //getup
+        //Accelerometer data starts with NLp message check
+        else if ([string isEqualToString:@"GET UP"]) {
+            //intialize the Ro-De head tilt position to 120
+            NSLog(@"in get up");
+            [self.Romo3 tiltToAngle:120 completion:^(BOOL success) {
+                self.Romo.expression=RMCharacterExpressionExcited;
+                self.Romo.emotion=RMCharacterEmotionExcited;
+            }];
+            if ([mManager isAccelerometerAvailable] == YES) {
+                
+                NSLog(@"accelerometer is present");
+                [mManager setAccelerometerUpdateInterval:updateInterval];
+                [mManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
+                    a = accelerometerData.acceleration.x;
+                    b = accelerometerData.acceleration.y;
+                    c = accelerometerData.acceleration.z;
+                    NSLog(@"x value is");
+                    NSLog(@"%f",a);
+                    NSLog(@"y value is");
+                    NSLog(@"%f",b);
+                    NSLog(@"z value is");
+                    NSLog(@"%f",c);
+                    NSLog(@"ur here");
                     
+                    //get up in excess declination
+                    if ((a <= 0.35 & a >= -0.35)& ((b <= 1.0 & b >= -0.99) || (b >= -1.0 & b <= -0.80) )& (c >=0.10 & c<= 2.10)){
+                        
+                        //light pulse
+                        [self.Romo3.LEDs pulseWithPeriod:-1.0 direction:RMCoreLEDPulseDirectionUpAndDown];
+                        //[self.Romo3 tiltWithMotorPower:1.0];
+                        [self.Romo3 tiltByAngle:70 completion:^(BOOL success) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                self.Romo.expression=RMCharacterExpressionHoldingBreath;
+                                [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+                                    if (success) {
+                                        [self.Romo3 driveForwardWithSpeed:1.0];
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                            [self.Romo3 stopDriving];
+                                            [mManager stopAccelerometerUpdates];
+                                        });
+                                    }
+                                }];
+                                
+                                
+                            });
+                        }];
+                        self.Romo.expression=RMCharacterExpressionHappy;
+                        self.Romo.emotion=RMCharacterEmotionHappy;
+                    }
+                    //get up in excess inclination
+                    else if (((a <= 0.35 & a >= -0.35) & ((b >= -0.11 & b <= 0.60) ||(b>= -0.45 & b<= -0.01))& (c >= -1.10 & c <= -0.76))){
+                        
+                        //light pulse
+                        [self.Romo3.LEDs pulseWithPeriod:-1.0 direction:RMCoreLEDPulseDirectionUpAndDown];
+                        //[self.Romo3 tiltWithMotorPower:1.0];
+                        [self.Romo3 tiltByAngle:130 completion:^(BOOL success) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                self.Romo.expression=RMCharacterExpressionHoldingBreath;
+                                [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+                                    if (success) {
+                                        [self.Romo3 driveBackwardWithSpeed:1.0];
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.6 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                            [self.Romo3 stopDriving];
+                                            [mManager stopAccelerometerUpdates];
+                                        });
+                                    }
+                                }];
+                                
+                                
+                            });
+                        }];
+                        self.Romo.expression=RMCharacterExpressionHappy;
+                        self.Romo.emotion=RMCharacterEmotionHappy;
+                    }
+                    
+                }];
+            }
+        }
+        
+        //for image retrival fro sign langauges
+        else if ([string isEqualToString:@"SIGN IMAGES"]) {
+            
+            sign_language += 1;
+            [self speakText:@"which sign image you want me to show"];
+        }
+        
+        else if ([string isEqualToString:@"BEST"]){
+            
+            //light pulse
+            [self.Romo3.LEDs pulseWithPeriod:1.0 direction:RMCoreLEDPulseDirectionUp];
+            
+            [self.Romo3 turnByAngle:-23.0 withRadius:RM_DRIVE_RADIUS_TURN_IN_PLACE completion:^(BOOL success, float heading) {
+                if (success) {
+                    [self.Romo3 driveForwardWithSpeed:speed1];
                 }
             }];
             
+        }
+        else if ([string isEqualToString:@"BEST1"]){
             
+            [self.Romo3 driveForwardWithSpeed:0.3];
+            [self.Romo3 stopDriving];
+        }
+        else if ([string isEqualToString:@"DELETE"]){
+            
+            [self.Romo3 tiltByAngle:70 completion:^(BOOL success) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    self.Romo.expression=RMCharacterExpressionHoldingBreath;
+                    [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+                        if (success) {
+                            //[self.Romo3 driveForwardWithSpeed:1.0];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  1* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                [self.Romo3 stopDriving];
+                                [mManager stopAccelerometerUpdates];
+                            });
+                        }
+                    }];
+                    
+                    
+                });
+            }];
+    
+            
+        }
+        else if([string isEqualToString:@"LIGHT"]){
+            // check if flashlight available
+            Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+            if (captureDeviceClass != nil) {
+                AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+                if ([device hasTorch] && [device hasFlash]){
+                    [device lockForConfiguration:nil];
+                    [device setTorchMode:AVCaptureTorchModeOn];
+                    [device setFlashMode:AVCaptureFlashModeOn];
+                    [self speakText:@"Light ON"];
+                    [device unlockForConfiguration];
+                }
+            }
+        }
+        else if([string isEqualToString:@"OFF"]){
+            Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+            if (captureDeviceClass != nil) {
+                AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+                if ([device hasTorch] && [device hasFlash]){
+                    [device lockForConfiguration:nil];
+                    [device setTorchMode:AVCaptureTorchModeOff];
+                    [device setFlashMode:AVCaptureFlashModeOff];
+                    [self speakText:@"Light OFF"];
+                    [device unlockForConfiguration];
+                }
+            }
+        }
+        else if ([string isEqualToString:@"BRIGHT"]){
+            
+            [self.Romo3.LEDs setSolidWithBrightness:0.2];
+            [self speakText:@"LED On"];
             
         }
         else if ([string isEqualToString:@"DANCE"] || [string isEqualToString:@"CAN YOU DANCE"]) {
@@ -956,60 +1022,33 @@ double takePicture =0;
             
         }
         else if ([string isEqualToString:@"NO"]){
+            [audioPlayer stop];
             [self speakText:@"What can i do for you"];
-            
         }
-        
-        
-        else if ([string isEqualToString:@"DELETE"]) {
-            [self.Romo3 tiltByAngle:-20 completion:^(BOOL success) {
-                self.Romo.expression=RMCharacterExpressionChuckle;
-                self.Romo.emotion=RMCharacterEmotionHappy;
-            }];
-            
+        else if ([string isEqualToString:@"1 METRES"]) {
+            [self.Romo3 driveForwardWithSpeed:0.6];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.667 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.Romo3 stopDriving];
+            });
         }
-        else if ([string isEqualToString:@"10 METRES"]) {
-            speed=speed1-0.2;
-            [self.Romo3 driveWithRadius:1.1 speed:speed];
-            
-            //[self.Romo3 turnByAngle:0 withRadius:1.1 completion:^(BOOL success, float heading) ];
-            
+        else if ([string isEqualToString:@"3 METRES"]) {
+            [self.Romo3 driveForwardWithSpeed:0.6];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.Romo3 stopDriving];
+            });
         }
-        else if ([string isEqualToString:@"20 METRES"]) {
-            speed=speed1-0.3;
-            [self.Romo3 turnByAngle:0 withRadius:.30 completion:^(BOOL success, float heading) {
-                if (success) {
-                    [self.Romo3 driveWithRadius:RM_DRIVE_RADIUS_STRAIGHT speed:0.3];
-                }
-            }];
-            
+        else if ([string isEqualToString:@"5 METRES"]) {
+            [self.Romo3 driveForwardWithSpeed:0.6];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 8.33 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.Romo3 stopDriving];
+            });
         }
-        else if ([string isEqualToString:@"30 METRES"]) {
-            speed=speed1-0.3;
-            [self.Romo3 turnByAngle:0 withRadius:.30 completion:^(BOOL success, float heading) {
-                if (success) {
-                    [self.Romo3 driveWithRadius:0.3 speed:0.3];
-                }
-            }];
+        else if ([string isEqualToString:@"8 METRES"]) {
             
-        }
-        else if ([string isEqualToString:@"BACKWARD"]) {
-            speed=speed1-0.3;
-            [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
-                if (success) {
-                    [self.Romo3 driveBackwardWithSpeed:speed];
-                }
-            }];
-            
-        }
-        else if ([string isEqualToString:@"DOWN"]) {
-            speed=speed1-0.3;
-            [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
-                if (success) {
-                    [self.Romo3 driveForwardWithSpeed:speed1];
-                }
-            }];
-            
+            [self.Romo3 driveForwardWithSpeed:0.6];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 13.33 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.Romo3 stopDriving];
+            });
         }
         else if ([string isEqualToString:@"LEFT"]) {
             [self.Romo3 turnByAngle:-90 withRadius:0.0 completion:^(BOOL success, float heading) {
@@ -1017,66 +1056,32 @@ double takePicture =0;
                     [self.Romo3 driveForwardWithSpeed:speed1];
                 }
             }];
-        } else if ([string isEqualToString:@"RIGHT"]) {
+        }
+        else if ([string isEqualToString:@"RIGHT"]) {
             [self.Romo3 turnByAngle:90 withRadius:0.0 completion:^(BOOL success, float heading) {
                 [self.Romo3 driveForwardWithSpeed:speed1];
             }];
-        } else if ([string isEqualToString:@"BACK"]) {
+        }
+        else if ([string isEqualToString:@"BACK"]) {
             [self.Romo3 driveBackwardWithSpeed:speed1];
-        } else if ([string isEqualToString:@"GO"]) {
-            if(speed <= 0){
-                speed = 0.3;
-                [self.Romo3 driveForwardWithSpeed:speed];
-                NSLog(@"%f",speed);
-            }
-            else{
-                
-                [self.Romo3 driveForwardWithSpeed:speed];NSLog(@"%f",speed);
-            }
-        } else if ([string isEqualToString:@"SMILE"]) {
+            [self.Romo3 stopDriving];
+        }
+        else if ([string isEqualToString:@"STRAIGHT"]) {
+            [self.Romo3 driveBackwardWithSpeed:1.0];
+            [self.Romo3 stopDriving];
+        }
+        else if ([string isEqualToString:@"SMILE"]) {
             self.Romo.expression=RMCharacterExpressionChuckle;
             self.Romo.emotion=RMCharacterEmotionHappy;
-        } else if([cmd isEqualToString:@"STOP"]){
+        }
+        else if([cmd isEqualToString:@"STOP"]){
+            // for stoping sign languages
+            sign_language = 0;
+            
+            [self.Romo3.LEDs turnOff];
             [audioPlayer stop];
             [self.Romo3 stopDriving];
             [mManager stopAccelerometerUpdates];
-        }
-        else if ([string isEqualToString:@"FAST"]) {
-            speed=speed1+1.0;
-            [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
-                if (success) {
-                    [self.Romo3 driveForwardWithSpeed:speed];
-                }
-            }];
-            NSLog(@"%f",speed);
-        }
-        else if ([string isEqualToString:@"SLOW"]) {
-            [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
-                if (success) {
-                    [self.Romo3 driveForwardWithSpeed:speed1 - 0.3];
-                }
-            }];
-        }
-        
-        else if ([string isEqualToString:@"SLEEPY"]) {
-            self.Romo.expression=RMCharacterExpressionSleepy;
-            self.Romo.emotion=RMCharacterEmotionSleepy;
-        }
-        else if ([string isEqualToString:@"BEWILDERED"]) {
-            self.Romo.expression=RMCharacterExpressionBewildered;
-            self.Romo.emotion=RMCharacterEmotionBewildered;
-        }
-        else if ([string isEqualToString:@"CRY"]) {
-            self.Romo.expression=RMCharacterExpressionSad;
-            self.Romo.emotion=RMCharacterEmotionSad;
-        }
-        else if ([string isEqualToString:@"SCARED"]) {
-            self.Romo.expression=RMCharacterExpressionScared;
-            self.Romo.emotion=RMCharacterEmotionScared;
-        }
-        else if ([string isEqualToString:@"CHUCKLE"]) {
-            self.Romo.expression=RMCharacterExpressionChuckle;
-            self.Romo.emotion=RMCharacterEmotionCurious;
         }
         else if ([string isEqualToString:@"BORED"]) {
             self.Romo.expression=RMCharacterExpressionBored;
@@ -1085,7 +1090,7 @@ double takePicture =0;
         else if ([string isEqualToString:@"WHAT'S YOUR JOB"] || [string isEqualToString:@"WHAT IS YOUR JOB"] ){
             [self speakText:@"To take care of Specailly abled people"];
         }
-        else if ([string isEqualToString:@"WHAT TIME IT IS"] || [string isEqualToString:@"TIME"] || [string isEqualToString:@"WHAT IS THE TIME"] ){
+        else if ([string isEqualToString:@"WHAT TIME IT IS"] || [string isEqualToString:@"TIME"] ){
             // get current date/time
             NSDate *today = [NSDate date];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -1116,7 +1121,7 @@ double takePicture =0;
         }
         else if ([string isEqualToString:@"ARE YOU MARRIED"]){
             self.Romo.emotion=RMCharacterEmotionCurious;
-            [self speakText:@"No, I am single"];
+            [self speakText:@"No, I am single. Ready to mingle"];
         }
         else if ([string isEqualToString:@"WHAT DO YOU EAT"]){
             self.Romo.emotion=RMCharacterEmotionExcited;
@@ -1137,6 +1142,9 @@ double takePicture =0;
         else if ([string isEqualToString:@"CAN YOU PLAY WITH A BALL"]){
             self.Romo.emotion=RMCharacterEmotionExcited;
             [self speakText:@"Yes, I can play football. By the way where the ball is?"];
+        }
+        else if ([string isEqualToString:@"RECOMMENDATION"]){
+            
         }
         else {
             self.Romo.emotion=RMCharacterEmotionSad;
@@ -1176,6 +1184,68 @@ double takePicture =0;
     [utterence setVoice:voice];
     
     [_synthesizer speakUtterance:utterence];
+}
+
+
+#pragma mark -sign language
+- (void)signlanguageimage:(NSString*)text {
+    
+    AFHTTPRequestOperationManager *manager1 = [AFHTTPRequestOperationManager manager];
+    
+    NSString *url = @"https://api.mongolab.com/api/1/databases/cs5590/collections/imageData?apiKey=jwTtZxj0UFvt_JDGFsAcPUfPT_jBY_JA";
+    
+    NSLog(@"%@", url);
+    
+    [manager1 GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        
+        NSArray *array=responseObject;
+        
+        for (id obj in array) {
+            // do something with object
+            NSDictionary *d=obj;
+            NSString *name=[d objectForKey:@"Image Name"];
+            NSLog(@"image name is: %@", name);
+            if ([name isEqualToString:text]){
+                NSString *content=[d objectForKey:@"Image Content"];
+                NSData *pngData = [[NSData alloc] initWithBase64EncodedString:content options:1];
+                UIImage *map = [UIImage imageWithData:pngData];
+                //[_imgRef setImage:map];
+                
+                // alertview for Sign Language
+                UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Sign" message:@"" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(320, 40, 200, 200)];
+                //UIImage *bkgImg = [UIImage imageNamed:@"url.jpg"];
+                [imageView setImage:map];
+                
+                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+                    [successAlert setValue:imageView forKey:@"accessoryView"];
+                } else {
+                    [successAlert addSubview:imageView];
+                }
+                
+                [successAlert show];
+                // end of alertshow
+            }
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:[error description]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }];
+}
+
+#pragma mark - back button on sign Language Images page
+- (IBAction)tapOnButton:(id)sender{
+    
 }
 
 #pragma mark - RMCoreDelegate Methods

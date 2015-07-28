@@ -13,9 +13,11 @@
     double _min, _max;
 }
 
+@property (strong, nonatomic) IBOutlet UIView *romoView;
+@property (strong, nonatomic) IBOutlet UIImageView *signImageView;
 @property (nonatomic, strong) RMCoreRobotRomo3 *Romo3;
 @property (nonatomic, strong) RMCharacter *Romo;
-
+@property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
 - (void)addGestureRecognizers;
 
 @end
