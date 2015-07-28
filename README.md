@@ -24,4 +24,20 @@ Note: We have added random function to get different answers from robot every ti
 Next Increment:
 
 Making Ro-De identifing sounds.Face recognization.
+
+
+
+---
+#Project Increment 2 :
+#Increment 3 :
+
+For Increment 3 we have added some functionalities to Ro-De:
+
+1) Crash Recovery .(Ro-De can come back to original position when it crashes).
+2) Ro-De can move specified distance.(Like 1m, 2m,3m ,10m etc).
+3) Ro-De can give SIgn Language Images for given Input. 
+User : How are you
+Ro-De : Displays Image in Sign Language.
+4) Content Recommandation (Spark).
+5) Image Classification[dog,cats] (Spark)
     
