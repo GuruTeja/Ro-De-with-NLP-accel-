@@ -851,10 +851,6 @@ double takePicture =0;
         else if ([string isEqualToString:@"GET UP"]) {
             //intialize the Ro-De head tilt position to 120
             NSLog(@"in get up");
-            [self.Romo3 tiltToAngle:120 completion:^(BOOL success) {
-                self.Romo.expression=RMCharacterExpressionExcited;
-                self.Romo.emotion=RMCharacterEmotionExcited;
-            }];
             if ([mManager isAccelerometerAvailable] == YES) {
                 
                 NSLog(@"accelerometer is present");
@@ -877,12 +873,12 @@ double takePicture =0;
                         //light pulse
                         [self.Romo3.LEDs pulseWithPeriod:-1.0 direction:RMCoreLEDPulseDirectionUpAndDown];
                         //[self.Romo3 tiltWithMotorPower:1.0];
-                        [self.Romo3 tiltByAngle:70 completion:^(BOOL success) {
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                        [self.Romo3 tiltToAngle:120 completion:^(BOOL success) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                 self.Romo.expression=RMCharacterExpressionHoldingBreath;
                                 [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
                                     if (success) {
-                                        [self.Romo3 driveForwardWithSpeed:1.0];
+                                        [self.Romo3 driveForwardWithSpeed:1.5];
                                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                             [self.Romo3 stopDriving];
                                             [mManager stopAccelerometerUpdates];
@@ -897,25 +893,22 @@ double takePicture =0;
                         self.Romo.emotion=RMCharacterEmotionHappy;
                     }
                     //get up in excess inclination
-                    else if (((a <= 0.35 & a >= -0.35) & ((b >= -0.11 & b <= 0.60) ||(b>= -0.45 & b<= -0.01))& (c >= -1.10 & c <= -0.76))){
-                        
+                    if (((a <= 0.35 & a >= -0.35) & ((b >= -0.11 & b <= 0.60) ||(b>= -0.45 & b<= -0.01))& (c >= -1.10 & c <= -0.76))){
                         //light pulse
                         [self.Romo3.LEDs pulseWithPeriod:-1.0 direction:RMCoreLEDPulseDirectionUpAndDown];
                         //[self.Romo3 tiltWithMotorPower:1.0];
-                        [self.Romo3 tiltByAngle:130 completion:^(BOOL success) {
+                        [self.Romo3 tiltByAngle:1 completion:^(BOOL success) {
                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                 self.Romo.expression=RMCharacterExpressionHoldingBreath;
                                 [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
                                     if (success) {
-                                        [self.Romo3 driveBackwardWithSpeed:1.0];
-                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.6 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                        [self.Romo3 driveBackwardWithSpeed:1.5];
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  1.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                             [self.Romo3 stopDriving];
                                             [mManager stopAccelerometerUpdates];
                                         });
                                     }
                                 }];
-                                
-                                
                             });
                         }];
                         self.Romo.expression=RMCharacterExpressionHappy;
@@ -953,12 +946,12 @@ double takePicture =0;
         else if ([string isEqualToString:@"DELETE"]){
             
             [self.Romo3 tiltByAngle:70 completion:^(BOOL success) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                     self.Romo.expression=RMCharacterExpressionHoldingBreath;
                     [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
                         if (success) {
-                            //[self.Romo3 driveForwardWithSpeed:1.0];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  1* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                            //[self.Romo3 driveForwardWithSpeed:1.5];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                 [self.Romo3 stopDriving];
                                 [mManager stopAccelerometerUpdates];
                             });
@@ -968,7 +961,26 @@ double takePicture =0;
                     
                 });
             }];
-    
+        }
+        else if ([string isEqualToString:@"HELLO"]){
+            
+            [self.Romo3 tiltByAngle:200 completion:^(BOOL success) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    self.Romo.expression=RMCharacterExpressionHoldingBreath;
+                    [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
+                        if (success) {
+                            //[self.Romo3 driveForwardWithSpeed:1.5];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                [self.Romo3 stopDriving];
+                                [mManager stopAccelerometerUpdates];
+                            });
+                        }
+                    }];
+                    
+                    
+                });
+            }];
+
             
         }
         else if([string isEqualToString:@"LIGHT"]){
