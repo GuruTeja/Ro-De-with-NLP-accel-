@@ -26,7 +26,7 @@
     [self.view addGestureRecognizer:swipeGesture];
     
      triggerImageURL = [[NSBundle mainBundle] pathForResource:@"Robo" ofType:@"bmp"];
-     triggerImageURL1 = [[NSBundle mainBundle] pathForResource:@"lays" ofType:@"bmp"];
+     triggerImageURL1 = [[NSBundle mainBundle] pathForResource:@"powerade" ofType:@"bmp"];
      triggerImageURL2 = [[NSBundle mainBundle] pathForResource:@"left" ofType:@"bmp"];
      triggerImageURL3 = [[NSBundle mainBundle] pathForResource:@"right" ofType:@"bmp"];
      triggerImageURL4 = [[NSBundle mainBundle] pathForResource:@"slowdown" ofType:@"bmp"];

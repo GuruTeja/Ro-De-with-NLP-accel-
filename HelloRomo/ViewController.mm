@@ -128,7 +128,7 @@ double takePicture =0;
     [self toggleSocketState];   //Starting the Socket
     
     //-[self startUpdatesWithSliderValue:100];
-   // NSLog(@"out of method");
+    // NSLog(@"out of method");
     //[self tappedOnRed];
     
     //[self signlanguageimage:@"who"];
@@ -260,7 +260,7 @@ double takePicture =0;
             cvError(0,"MatchFinder","4th descriptor empty",__FILE__,__LINE__);
         else
             //NSLog(@"ur here");
-        matcher.match( descriptors_object, descriptors_scene, matches );
+            matcher.match( descriptors_object, descriptors_scene, matches );
         matcher.match( descriptors_object1, descriptors_scene1, matches1);//object2 -*matches1*
         
         double max_dist = 0; double min_dist = 100;
@@ -804,31 +804,69 @@ double takePicture =0;
                     }
                 }
                 
-                for(int i = 0; i< 4 ; i ++){
-                    [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
-                        if (success) {
-                            [self.Romo3 driveForwardWithSpeed:0.3];
-                            [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
-                                if (success) {
-                                    for(int j =0 ;j < 2; j++)
-                                    {
-                                        [self.Romo3 driveBackwardWithSpeed:0.3];
-                                        [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                    if (success) {
+                        [self.Romo3 driveForwardWithSpeed:0.3];
+                        [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                            if (success) {
+                                [self.Romo3 driveBackwardWithSpeed:0.3];
+                                [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                    if (success) {
+                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                        [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
                                             if (success) {
-                                                [self.Romo3 driveForwardWithSpeed:0.3];
-                                                [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
                                                     if (success) {
-                                                        [self.Romo3 stopAllMotion];
+                                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                                        [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                                                            if (success) {
+                                                                [self.Romo3 driveBackwardWithSpeed:0.3];
+                                                                [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                                    if (success) {
+                                                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                                                        [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                                            if (success) {
+                                                                                [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                                                                                    if (success) {
+                                                                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                                                                        [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                                                                                            if (success) {
+                                                                                                [self.Romo3 driveBackwardWithSpeed:0.3];
+                                                                                                [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                                                                    if (success) {
+                                                                                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                                                                                        [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                                                                            if (success) {
+                                                                                                                [self.Romo3 stopAllMotion];
+                                                                                                            }
+                                                                                                        }];
+                                                                                                    }
+                                                                                                }];
+                                                                                                
+                                                                                            }
+                                                                                        }];
+                                                                                    }
+                                                                                }];
+                                                                                ;
+                                                                            }
+                                                                        }];
+                                                                    }
+                                                                }];
+                                                                
+                                                            }
+                                                        }];
                                                     }
                                                 }];
                                             }
                                         }];
                                     }
-                                }
-                            }];
-                        }
-                    }];
-                }
+                                }];
+                                
+                            }
+                        }];
+                    }
+                }];
+                
                 sing_communication  = 0;
                 dance_communication = 0;
                 bored_communication = 0;
@@ -980,7 +1018,7 @@ double takePicture =0;
                     
                 });
             }];
-
+            
             
         }
         else if([string isEqualToString:@"LIGHT"]){
