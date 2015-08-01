@@ -359,7 +359,7 @@
 				ORGANIZATIONNAME = Romotive;
 				TargetAttributes = {
 					942AC67F16E81A520062CA8A = {
-						DevelopmentTeam = W8RFWHQM7B;
+						DevelopmentTeam = LGND6TWE49;
 					};
 				};
 			};
@@ -533,7 +533,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.4;
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -561,7 +561,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.4;
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};

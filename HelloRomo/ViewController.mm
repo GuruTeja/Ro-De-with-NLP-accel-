@@ -46,7 +46,8 @@ static const NSTimeInterval accelerometerMin = 0.1;
     BOOL isRunning;
     
     GCDAsyncSocket *listenSocket;
-    
+    GCDAsyncSocket *androidSocket;
+    GCDAsyncSocket *sparkSocket;
     CMMotionManager *mManager;
     AVAudioPlayer *audioPlayer;
 }
@@ -83,8 +84,11 @@ int result1 = 0; //object1
 int sing_communication = 0;
 int dance_communication = 0;
 int bored_communication = 0;
+int book_recommend = 0;
+int image_recognize = 0;
 int greeting_communication = 0;
 int sign_language = 0;
+int get_up = 0;
 int stop_greet = 0;
 int stop_greet1 = 0;
 
@@ -128,7 +132,7 @@ double takePicture =0;
     [self toggleSocketState];   //Starting the Socket
     
     //-[self startUpdatesWithSliderValue:100];
-   // NSLog(@"out of method");
+    // NSLog(@"out of method");
     //[self tappedOnRed];
     
     //[self signlanguageimage:@"who"];
@@ -260,7 +264,7 @@ double takePicture =0;
             cvError(0,"MatchFinder","4th descriptor empty",__FILE__,__LINE__);
         else
             //NSLog(@"ur here");
-        matcher.match( descriptors_object, descriptors_scene, matches );
+            matcher.match( descriptors_object, descriptors_scene, matches );
         matcher.match( descriptors_object1, descriptors_scene1, matches1);//object2 -*matches1*
         
         double max_dist = 0; double min_dist = 100;
@@ -441,8 +445,8 @@ double takePicture =0;
             
             if(start1 == 0){
                 //if(result1 >= 1){
-                cout<<"\n GOT IT !!!!\n detected is lays";
-                [self speakText:@"It's Lays. Hide it. Prady likes it !"];
+                cout<<"\n GOT IT !!!!\n detected is powerade";
+                [self speakText:@"It's Powerade!"];
                 self.Romo.emotion=RMCharacterEmotionDelighted;
                 //result1 = 0;
                 stop_greet1 = 1;
@@ -734,7 +738,17 @@ double takePicture =0;
         }
         else if ([string isEqualToString:@"PLAY"]|| [string isEqualToString:@"CAN YOU SING"] || [string isEqualToString:@"YES"] || [string isEqualToString:@"I AM BORED"]) {
             
-            if(bored_communication == 0){
+            if(book_recommend == 1){
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [self speakText:@"the best book to read is The Lord of the Rings by J.R.R. Tolkien"];
+                });
+                
+            }
+            else if(image_recognize == 1){
+                [self speakText:@"it is a guitar"];
+            }
+            else if(bored_communication == 0){
                 [self speakText:@"is that so? WHAT CAN I DO FOR YOU?"];
                 bored_communication += 1;
             }
@@ -799,50 +813,78 @@ double takePicture =0;
                         [device lockForConfiguration:nil];
                         [device setTorchMode:AVCaptureTorchModeOn];
                         [device setFlashMode:AVCaptureFlashModeOn];
-                        [self speakText:@"Light ON"];
+                        //[self speakText:@"Light ON"];
                         [device unlockForConfiguration];
                     }
                 }
                 
-                for(int i = 0; i< 4 ; i ++){
-                    [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
-                        if (success) {
-                            [self.Romo3 driveForwardWithSpeed:0.3];
-                            [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
-                                if (success) {
-                                    for(int j =0 ;j < 2; j++)
-                                    {
-                                        [self.Romo3 driveBackwardWithSpeed:0.3];
-                                        [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                    if (success) {
+                        [self.Romo3 driveForwardWithSpeed:0.3];
+                        [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                            if (success) {
+                                [self.Romo3 driveBackwardWithSpeed:0.3];
+                                [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                    if (success) {
+                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                        [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
                                             if (success) {
-                                                [self.Romo3 driveForwardWithSpeed:0.3];
-                                                [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
                                                     if (success) {
-                                                        [self.Romo3 stopAllMotion];
+                                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                                        [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                                                            if (success) {
+                                                                [self.Romo3 driveBackwardWithSpeed:0.3];
+                                                                [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                                    if (success) {
+                                                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                                                        [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                                            if (success) {
+                                                                                [self.Romo3 turnByAngle:270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                                                                                    if (success) {
+                                                                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                                                                        [self.Romo3 turnByAngle:-270 withRadius:0.1 completion:^(BOOL success, float heading) {
+                                                                                            if (success) {
+                                                                                                [self.Romo3 driveBackwardWithSpeed:0.3];
+                                                                                                [self.Romo3 turnByAngle:50 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                                                                    if (success) {
+                                                                                                        [self.Romo3 driveForwardWithSpeed:0.3];
+                                                                                                        [self.Romo3 turnByAngle:-40 withRadius:0.05 completion:^(BOOL success, float heading) {
+                                                                                                            if (success) {
+                                                                                                                [self.Romo3 stopAllMotion];
+                                                                                                            }
+                                                                                                        }];
+                                                                                                    }
+                                                                                                }];
+                                                                                                
+                                                                                            }
+                                                                                        }];
+                                                                                    }
+                                                                                }];
+                                                                                ;
+                                                                            }
+                                                                        }];
+                                                                    }
+                                                                }];
+                                                                
+                                                            }
+                                                        }];
                                                     }
                                                 }];
                                             }
                                         }];
                                     }
-                                }
-                            }];
-                        }
-                    }];
-                }
+                                }];
+                                
+                            }
+                        }];
+                    }
+                }];
+                
                 sing_communication  = 0;
                 dance_communication = 0;
                 bored_communication = 0;
-                
-                //flash lights off
-                AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-                if ([device hasTorch] && [device hasFlash]){
-                    [device lockForConfiguration:nil];
-                    [device setTorchMode:AVCaptureTorchModeOff];
-                    [device setFlashMode:AVCaptureFlashModeOff];
-                    [self speakText:@"Light OFF"];
-                    [device unlockForConfiguration];
-                }
-                
+                book_recommend = 0;
             }
         }
         
@@ -868,7 +910,7 @@ double takePicture =0;
                     NSLog(@"ur here");
                     
                     //get up in excess declination
-                    if ((a <= 0.35 & a >= -0.35)& ((b <= 1.0 & b >= -0.99) || (b >= -1.0 & b <= -0.80) )& (c >=0.10 & c<= 2.10)){
+                    if ((a <= 0.35 & a >= -0.35)& ((b <= 1.0 & b >= -0.99))& (c >=0.10 & c<= 2.10)){
                         
                         //light pulse
                         [self.Romo3.LEDs pulseWithPeriod:-1.0 direction:RMCoreLEDPulseDirectionUpAndDown];
@@ -892,12 +934,12 @@ double takePicture =0;
                         self.Romo.expression=RMCharacterExpressionHappy;
                         self.Romo.emotion=RMCharacterEmotionHappy;
                     }
-                    //get up in excess inclination
-                    if (((a <= 0.35 & a >= -0.35) & ((b >= -0.11 & b <= 0.60) ||(b>= -0.45 & b<= -0.01))& (c >= -1.10 & c <= -0.76))){
+                    //get up in excess inclination;l\;nb
+                    else if (((a <= 0.35 & a >= -0.35) & ((b >= -0.11 & b <= 0.60) ||(b>= -0.45 & b<= -0.01))& (c >= -1.10 & c <= -0.76))){
                         //light pulse
                         [self.Romo3.LEDs pulseWithPeriod:-1.0 direction:RMCoreLEDPulseDirectionUpAndDown];
                         //[self.Romo3 tiltWithMotorPower:1.0];
-                        [self.Romo3 tiltByAngle:1 completion:^(BOOL success) {
+                        //[self.Romo3 tiltByAngle:1 completion:^(BOOL success) {
                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                 self.Romo.expression=RMCharacterExpressionHoldingBreath;
                                 [self.Romo3 turnByAngle:0 withRadius:0.0 completion:^(BOOL success, float heading) {
@@ -910,7 +952,7 @@ double takePicture =0;
                                     }
                                 }];
                             });
-                        }];
+                        //}];
                         self.Romo.expression=RMCharacterExpressionHappy;
                         self.Romo.emotion=RMCharacterEmotionHappy;
                     }
@@ -919,6 +961,20 @@ double takePicture =0;
             }
         }
         
+        //Books recommendations
+        else if ([string isEqualToString:@"CAN YOU RECOMMEND A BOOK"] || [string isEqualToString:@"CAN YOU RECOMMEND A BOOK"] || [string isEqualToString:@"RECOMMEND BOOK"] ){
+            
+            [self speakText:@"Yes i can, do you want me to recommend"];
+            book_recommend = 1;
+        }
+        //image reecognization  by spark
+        else if ([string isEqualToString:@"RECOGNIZE IMAGE"] || [string isEqualToString:@"IMAGE RECOGNIZATION"] || [string isEqualToString:@"RECOMMEND IMAGE"] ){
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 13 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self speakText:@"It is a guitar"];
+            });
+            
+        }
         //for image retrival fro sign langauges
         else if ([string isEqualToString:@"SIGN IMAGES"]) {
             
@@ -980,7 +1036,7 @@ double takePicture =0;
                     
                 });
             }];
-
+            
             
         }
         else if([string isEqualToString:@"LIGHT"]){
@@ -1037,25 +1093,31 @@ double takePicture =0;
             [audioPlayer stop];
             [self speakText:@"What can i do for you"];
         }
-        else if ([string isEqualToString:@"1 METRES"]) {
+        else if ([string isEqualToString:@"1 METER"] || [string isEqualToString:@"MOVE 1 METER"]) {
             [self.Romo3 driveForwardWithSpeed:0.6];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.667 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self.Romo3 stopDriving];
             });
         }
-        else if ([string isEqualToString:@"3 METRES"]) {
+        else if ([string isEqualToString:@"2 METERS"] || [string isEqualToString:@"MOVE 2 METERS"]) {
+            [self.Romo3 driveForwardWithSpeed:0.6];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.667 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.Romo3 stopDriving];
+            });
+        }
+        else if ([string isEqualToString:@"3 METERS"] || [string isEqualToString:@"MOVE 3 METERS"]) {
             [self.Romo3 driveForwardWithSpeed:0.6];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self.Romo3 stopDriving];
             });
         }
-        else if ([string isEqualToString:@"5 METRES"]) {
+        else if ([string isEqualToString:@"5 METERS"] || [string isEqualToString:@"MOVE 5 METERS"]) {
             [self.Romo3 driveForwardWithSpeed:0.6];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 8.33 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self.Romo3 stopDriving];
             });
         }
-        else if ([string isEqualToString:@"8 METRES"]) {
+        else if ([string isEqualToString:@"8 METERS"] || [string isEqualToString:@"MOVE 8 METERS"]) {
             
             [self.Romo3 driveForwardWithSpeed:0.6];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 13.33 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
@@ -1086,9 +1148,27 @@ double takePicture =0;
             self.Romo.expression=RMCharacterExpressionChuckle;
             self.Romo.emotion=RMCharacterEmotionHappy;
         }
+        else if ([string isEqualToString:@"THANK YOU"] || [string isEqualToString:@"THANKYOU"]) {
+            [self speakText:@"Thats all for now! Thank You for watching. Good night"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                self.Romo.expression=RMCharacterExpressionSleepy;
+                self.Romo.emotion=RMCharacterEmotionSleeping;
+
+            });
+                    }
         else if([cmd isEqualToString:@"STOP"]){
             // for stoping sign languages
             sign_language = 0;
+            
+            //flash lights off
+            AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+            if ([device hasTorch] && [device hasFlash]){
+                [device lockForConfiguration:nil];
+                [device setTorchMode:AVCaptureTorchModeOff];
+                [device setFlashMode:AVCaptureFlashModeOff];
+                //[self speakText:@"Light OFF"];
+                [device unlockForConfiguration];
+            }
             
             [self.Romo3.LEDs turnOff];
             [audioPlayer stop];
@@ -1183,7 +1263,7 @@ double takePicture =0;
 
 #pragma mark -test to speach function
 - (void)speakText:(NSString*)text {
-    //_voice = "en-US";
+    //_voice = "en-UK";
     if (_synthesizer == nil) {
         _synthesizer = [[AVSpeechSynthesizer alloc] init];
         _synthesizer.delegate = self;
@@ -1192,7 +1272,7 @@ double takePicture =0;
     AVSpeechUtterance *utterence = [[AVSpeechUtterance alloc] initWithString:text];
     utterence.rate = _speed;
     
-    AVSpeechSynthesisVoice *voice = [AVSpeechSynthesisVoice voiceWithLanguage:_voice];
+    AVSpeechSynthesisVoice *voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
     [utterence setVoice:voice];
     
     [_synthesizer speakUtterance:utterence];
@@ -1439,6 +1519,14 @@ double takePicture =0;
         }
     });
     
+    if ([host isEqualToString:@"10.205.1.111"]) {
+        androidSocket = newSocket;
+        //        androidIP = host;
+    } else {
+        sparkSocket = newSocket;
+    }
+
+    
     NSString *welcomeMsg = @"Welcome to the AsyncSocket Echo Server\r\n";
     NSData *welcomeData = [welcomeMsg dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -1467,6 +1555,73 @@ double takePicture =0;
     NSLog(@"== didReadData %@ ==", sock.description);
     
     NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    /* For Spark */
+        if([msg isEqualToString:@"RECOGNIZE IMAGE"] || [msg isEqualToString:@"IMAGE RECOGNIZATION"] || [msg isEqualToString:@"RECOMMEND IMAGE"]){
+    
+            if ([[sock connectedHost] isEqualToString:[androidSocket connectedHost]]) {
+                
+                if (sparkSocket != nil) {
+    //                NSString *command = @"RECOMMEND\n";
+    //                NSData *commandData = [command dataUsingEncoding:NSUTF8StringEncoding];
+    //                //Append image data
+    
+                    UIImage *guitarImage = [UIImage imageNamed:@"Fire.jpg"];
+    //                cv::Mat networkImage = [guitarImage CVGrayscaleMat];
+    
+                    //        NSData *data = [NSData dataWithBytes:networkImage.data length:networkImage.elemSize()*networkImage.total()];
+    
+                    NSData *data = UIImageJPEGRepresentation(guitarImage, 0.8);
+                    NSString *base64 = [data base64Encoding];
+    
+                    [sparkSocket writeData:[base64 dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:(11)];
+                    [sparkSocket writeData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:1];
+                } else {
+                    NSLog(@"Check for Spark socket");
+                }
+    
+            } else  {
+                NSString *welcomeMsg = msg;
+                NSData *welcomeData = [welcomeMsg dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+                [sock readDataWithTimeout:READ_TIMEOUT tag:0];
+    
+                [sock writeData:welcomeData withTimeout:-1 tag:WELCOME_MSG];
+                sock.delegate = self;
+    
+            }
+        }
+            else if([msg isEqualToString:@"BOOK RECOMMEND"] || [msg isEqualToString:@"RECOMMEND BOOK"]){
+    
+            if ([[sock connectedHost] isEqualToString:[androidSocket connectedHost]]) {
+                //
+    
+                if (sparkSocket != nil) {
+                    NSString *command = @"RECOMMEND\n";
+                    //NSData *commandData = [command dataUsingEncoding:NSUTF8StringEncoding];
+                    //Append image data
+    
+                    [sparkSocket writeData:[command dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:(11)];
+                    [sparkSocket writeData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:1];
+                    
+                } else {
+                    NSLog(@"Check for Spark socket");
+                }
+    
+            } else  {
+                NSString *welcomeMsg = msg;
+                NSData *welcomeData = [welcomeMsg dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+                [sock readDataWithTimeout:READ_TIMEOUT tag:0];
+    
+                [sock writeData:welcomeData withTimeout:-1 tag:WELCOME_MSG];
+                sock.delegate = self;
+    
+            }
+        }
+    
     
     [self log:msg];
     [self perform:msg];
